@@ -1,105 +1,48 @@
 const carrinho = {};
 
 const cards = document.querySelectorAll(".card");
-
-const contadorCarrinho = document.querySelector("#quantidade-carrinho");
-
-const listaPedido = document.querySelector("#lista-pedido");
-
+const contadorCarrinho = document.querySelector(".carrinho");
 
 cards.forEach(function (card) {
 
     const produto = card.dataset.produto;
 
-    const botaoAdicionar = card.querySelector(".adicionar");
-
-    const botaoRemover = card.querySelector(".remover");
-
-    const quantidadeElemento = card.querySelector(".quantidade");
-
+    const adicionar = card.querySelector(".adicionar");
+    const remover = card.querySelector(".remover");
+    const quantidade = card.querySelector(".quantidade");
 
     carrinho[produto] = 0;
 
-
-    botaoAdicionar.addEventListener("click", function () {
+    adicionar.addEventListener("click", function () {
 
         carrinho[produto]++;
 
-        atualizarTela();
+        quantidade.textContent = carrinho[produto];
 
+        atualizarCarrinho();
     });
 
-
-    botaoRemover.addEventListener("click", function () {
+    remover.addEventListener("click", function () {
 
         if (carrinho[produto] > 0) {
 
             carrinho[produto]--;
 
-            atualizarTela();
+            quantidade.textContent = carrinho[produto];
 
+            atualizarCarrinho();
         }
-
     });
-
-
 });
 
 
-function atualizarTela() {
+function atualizarCarrinho() {
 
-    let totalItens = 0;
-
-    listaPedido.innerHTML = "";
-
+    let total = 0;
 
     for (const produto in carrinho) {
-
-        const quantidade = carrinho[produto];
-
-
-        if (quantidade > 0) {
-
-            totalItens += quantidade;
-
-
-            const item = document.createElement("div");
-
-            item.classList.add("item-pedido");
-
-            item.innerHTML = `
-                <span>${produto}</span>
-                <strong>${quantidade}x</strong>
-            `;
-
-            listaPedido.appendChild(item);
-
-        }
-
-
-        const cards = document.querySelectorAll(".card");
-
-
-        cards.forEach(function (card) {
-
-            if (card.dataset.produto === produto) {
-
-                card.querySelector(".quantidade").textContent = quantidade;
-
-            }
-
-        });
-
+        total += carrinho[produto];
     }
 
-
-    contadorCarrinho.textContent = totalItens;
-
-
-    if (totalItens === 0) {
-
-        listaPedido.innerHTML = "<p>Nenhum item adicionado.</p>";
-
-    }
-
+    contadorCarrinho.textContent = "🛒 " + total;
 }
