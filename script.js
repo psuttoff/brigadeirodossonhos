@@ -424,6 +424,6 @@ const url =
 window.open(url, "_blank");
 
 
-};
+});
 
 atualizarInterface();
