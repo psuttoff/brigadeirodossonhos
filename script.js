@@ -1,429 +1,300 @@
 const numeroWhatsApp = "5519971213029";
 
-
 const precoCaixinha = 14;
-
-
 const limiteBrigadeiros = 4;
 
-
 const sabores = {
-"Brigadeiro com Granulado": 0,
-"Brigadeiro de Ninho": 0,
-"Brigadeiro de Paçoca": 0,
-"Brigadeiro de Ferrero Rocher": 0,
-"Brigadeiro de M&M's": 0
+    "Brigadeiro com Granulado": 0,
+    "Brigadeiro de Ninho": 0,
+    "Brigadeiro de Paçoca": 0,
+    "Brigadeiro de Ferrero Rocher": 0,
+    "Brigadeiro de M&M's": 0
 };
 
 
-const botoesAdicionar =
-document.querySelectorAll(".botao-adicionar");
+const botoesAdicionar = document.querySelectorAll(".botao-adicionar");
+const botoesRemover = document.querySelectorAll(".botao-remover");
 
-const botoesRemover =
-document.querySelectorAll(".botao-remover");
+const contadorCarrinho = document.querySelector("#contadorCarrinho");
 
-const contadorCarrinho =
-document.querySelector("#contadorCarrinho");
+const abrirCarrinho = document.querySelector("#abrirCarrinho");
+const fecharCarrinho = document.querySelector("#fecharCarrinho");
 
-const abrirCarrinho =
-document.querySelector("#abrirCarrinho");
+const fundoModal = document.querySelector("#fundoModal");
 
-const fecharCarrinho =
-document.querySelector("#fecharCarrinho");
+const resumoPedido = document.querySelector("#resumoPedido");
 
-const fundoModal =
-document.querySelector("#fundoModal");
-
-const resumoPedido =
-document.querySelector("#resumoPedido");
-
-const formPedido =
-document.querySelector("#formPedido");
+const formPedido = document.querySelector("#formPedido");
 
 
 function quantidadeTotal() {
 
-```
-let total = 0;
+    let totalItens = 0;
 
-for (const sabor in sabores) {
+    for (const sabor in sabores) {
+        totalItens += sabores[sabor];
+    }
 
-    total += sabores[sabor];
-
+    return totalItens;
 }
-
-return total;
-```
-
-}
-
 
 
 function atualizarInterface() {
 
-``
-const total = quantidadeTotal();
+    const totalItens = quantidadeTotal();
 
-contadorCarrinho.textContent =
-    `${total}/4`;
+    contadorCarrinho.textContent = `${totalItens}/4`;
 
 
+    document.querySelectorAll(".quantidade").forEach(function (elemento) {
 
-document
-    .querySelectorAll(".quantidade")
-    .forEach(function (elemento) {
+        const sabor = elemento.dataset.quantidade;
 
-        const sabor =
-            elemento.dataset.quantidade;
-
-        elemento.textContent =
-            sabores[sabor];
+        elemento.textContent = sabores[sabor];
 
     });
 
 
+    botoesAdicionar.forEach(function (botao) {
 
-botoesAdicionar.forEach(function (botao) {
+        botao.disabled = totalItens >= limiteBrigadeiros;
 
-    if (total >= limiteBrigadeiros) {
-
-        botao.disabled = true;
-
-    } else {
-
-        botao.disabled = false;
-
-    }
-
-});
-```
+    });
 
 }
 
 
 botoesAdicionar.forEach(function (botao) {
 
-```
-botao.addEventListener("click", function () {
+    botao.addEventListener("click", function () {
 
-    const sabor =
-        botao.dataset.produto;
+        const sabor = botao.dataset.produto;
 
-    const total =
-        quantidadeTotal();
+        if (quantidadeTotal() >= limiteBrigadeiros) {
+            return;
+        }
 
+        sabores[sabor]++;
 
-    if (total >= limiteBrigadeiros) {
+        atualizarInterface();
 
-        return;
-
-    }
-
-
-    sabores[sabor]++;
-
-    atualizarInterface();
-
-});
-```
+    });
 
 });
 
 
 botoesRemover.forEach(function (botao) {
 
-```
-botao.addEventListener("click", function () {
+    botao.addEventListener("click", function () {
 
-    const sabor =
-        botao.dataset.produto;
+        const sabor = botao.dataset.produto;
 
+        if (sabores[sabor] <= 0) {
+            return;
+        }
 
-    if (sabores[sabor] <= 0) {
+        sabores[sabor]--;
 
-        return;
+        atualizarInterface();
 
-    }
-
-
-    sabores[sabor]--;
-
-    atualizarInterface();
-
-});
-```
+    });
 
 });
 
 
 abrirCarrinho.addEventListener("click", function () {
 
-```
-atualizarResumo();
+    atualizarResumo();
 
-fundoModal.classList.add("aberto");
-```
+    fundoModal.classList.add("aberto");
 
 });
 
 
 fecharCarrinho.addEventListener("click", function () {
 
-```
-fundoModal.classList.remove("aberto");
-```
+    fundoModal.classList.remove("aberto");
 
 });
 
 
 fundoModal.addEventListener("click", function (evento) {
 
-```
-if (evento.target === fundoModal) {
+    if (evento.target === fundoModal) {
 
-    fundoModal.classList.remove("aberto");
+        fundoModal.classList.remove("aberto");
 
-}
-```
+    }
 
 });
 
 
 function atualizarResumo() {
 
-```
-const total =
-    quantidadeTotal();
+    const totalItens = quantidadeTotal();
 
 
-if (total === 0) {
+    if (totalItens === 0) {
 
-    resumoPedido.innerHTML = `
-        <p>
-            Você ainda não escolheu nenhum brigadeiro.
-        </p>
-    `;
-
-    return;
-
-}
-
-
-resumoPedido.innerHTML = "";
-
-
-for (const sabor in sabores) {
-
-    const quantidade =
-        sabores[sabor];
-
-
-    if (quantidade > 0) {
-
-        const item =
-            document.createElement("div");
-
-        item.classList.add("item-pedido");
-
-
-        item.innerHTML = `
-            <span>${quantidade}x ${sabor}</span>
-            <strong></strong>
+        resumoPedido.innerHTML = `
+            <p>Nenhum brigadeiro escolhido.</p>
         `;
 
-
-        resumoPedido.appendChild(item);
-
+        return;
     }
 
-}
-```
+
+    resumoPedido.innerHTML = "";
+
+
+    for (const sabor in sabores) {
+
+        const quantidade = sabores[sabor];
+
+
+        if (quantidade > 0) {
+
+            const item = document.createElement("div");
+
+            item.classList.add("item-pedido");
+
+
+            item.innerHTML = `
+                <span>${quantidade}x ${sabor}</span>
+            `;
+
+
+            resumoPedido.appendChild(item);
+
+        }
+
+    }
 
 }
 
 
 formPedido.addEventListener("submit", function (evento) {
 
-```
-evento.preventDefault();
+    evento.preventDefault();
 
 
-const total =
-    quantidadeTotal();
+    const totalItens = quantidadeTotal();
 
 
+    if (totalItens === 0) {
 
-if (total === 0) {
+        alert("Escolha pelo menos um brigadeiro.");
 
-    alert(
-        "Escolha pelo menos um brigadeiro para continuar."
-    );
-
-    return;
-
-}
-
-
-
-const rua =
-    document
-        .querySelector("#rua")
-        .value
-        .trim();
-
-const numero =
-    document
-        .querySelector("#numero")
-        .value
-        .trim();
-
-const cidade =
-    document
-        .querySelector("#cidade")
-        .value
-        .trim();
-
-
-
-const descricao =
-    document
-        .querySelector("#descricao")
-        .value
-        .trim();
-
-
-
-const pagamentoSelecionado =
-    document.querySelector(
-        'input[name="pagamento"]:checked'
-    );
-
-
-if (!rua || !numero || !cidade) {
-
-    alert(
-        "Preencha o endereço completo."
-    );
-
-    return;
-
-}
-
-
-if (!pagamentoSelecionado) {
-
-    alert(
-        "Escolha uma forma de pagamento."
-    );
-
-    return;
-
-}
-
-
-const pagamento =
-    pagamentoSelecionado.value;
-
-
-
-let mensagem =
-    "🍫 *NOVO PEDIDO - BRIGADEIRO DOS SONHOS*";
-
-
-mensagem += "\n\n";
-
-mensagem += "📦 *Caixinha:*\n";
-
-
-for (const sabor in sabores) {
-
-    const quantidade =
-        sabores[sabor];
-
-
-    if (quantidade > 0) {
-
-        mensagem +=
-            `• ${quantidade}x ${sabor}\n`;
+        return;
 
     }
 
-}
+
+    const rua = document.querySelector("#rua").value.trim();
+
+    const numero = document.querySelector("#numero").value.trim();
+
+    const cidade = document.querySelector("#cidade").value.trim();
+
+    const descricao = document.querySelector("#descricao").value.trim();
+
+    const pagamentoSelecionado =
+        document.querySelector('input[name="pagamento"]:checked');
 
 
-mensagem += "\n";
+    if (!rua || !numero || !cidade) {
 
-mensagem +=
-    `📦 *Quantidade de brigadeiros:* ${total}/4\n`;
+        alert("Preencha o endereço completo.");
 
-mensagem +=
-    `💰 *Valor da caixinha: R$ ${precoCaixinha.toFixed(2).replace(".", ",")}*\n`;
+        return;
+
+    }
 
 
-if (descricao) {
+    if (!pagamentoSelecionado) {
+
+        alert("Escolha uma forma de pagamento.");
+
+        return;
+
+    }
+
+
+    let mensagem = "";
+
+    mensagem += "🍫 *NOVO PEDIDO - BRIGADEIRO DOS SONHOS*\n\n";
+
+    mensagem += "📦 *CAIXINHA*\n";
+
+
+    for (const sabor in sabores) {
+
+        const quantidade = sabores[sabor];
+
+
+        if (quantidade > 0) {
+
+            mensagem += `• ${quantidade}x ${sabor}\n`;
+
+        }
+
+    }
+
 
     mensagem += "\n";
 
-    mensagem += "📝 *Descrição:*\n";
+    mensagem += `📦 *Quantidade: ${totalItens}/4*\n`;
 
-    mensagem += descricao + "\n";
-
-}
+    mensagem += `💰 *Valor: R$ ${precoCaixinha.toFixed(2).replace(".", ",")}*\n`;
 
 
+    if (descricao) {
 
-mensagem += "\n";
+        mensagem += "\n";
 
-mensagem += "📍 *Endereço de entrega:*\n";
+        mensagem += "📝 *Descrição:*\n";
 
-mensagem += `Rua: ${rua}\n`;
+        mensagem += descricao + "\n";
 
-mensagem += `Número: ${numero}\n`;
-
-mensagem += `Cidade: ${cidade}\n`;
-
+    }
 
 
-mensagem += "\n";
+    mensagem += "\n";
 
-mensagem += "💳 *Forma de pagamento:*\n";
+    mensagem += "📍 *ENDEREÇO*\n";
 
+    mensagem += `Rua: ${rua}\n`;
 
-if (pagamento === "Pix") {
+    mensagem += `Número: ${numero}\n`;
 
-    mensagem +=
-        "Pix na hora do pedido";
-
-} else {
-
-    mensagem +=
-        "Dinheiro na hora da entrega";
-
-}
+    mensagem += `Cidade: ${cidade}\n`;
 
 
-if (numeroWhatsApp === "SEU_NUMERO_AQUI") {
+    mensagem += "\n";
 
-    alert(
-        "Configure o número do WhatsApp da loja no arquivo script.js."
-    );
+    mensagem += "💳 *PAGAMENTO*\n";
 
-    return;
-
-}
+    mensagem += pagamentoSelecionado.value;
 
 
-const mensagemCodificada =
-    encodeURIComponent(mensagem);
+    if (numeroWhatsApp === "SEU_NUMERO_AQUI") {
+
+        alert("Configure o número do WhatsApp no script.js.");
+
+        return;
+
+    }
 
 
-const url =
-    `https://wa.me/${numeroWhatsApp}?text=${mensagemCodificada}`;
+    const mensagemCodificada = encodeURIComponent(mensagem);
+
+    const url =
+        `https://wa.me/${numeroWhatsApp}?text=${mensagemCodificada}`;
 
 
-window.open(url, "_blank");
-
+    window.open(url, "_blank");
 
 });
+
 
 atualizarInterface();
