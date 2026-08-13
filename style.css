@@ -512,6 +512,37 @@ padding: 35px 0;
 
 }
 
+.botao-caixinha {
+    display: block;
+    width: 90%;
+    max-width: 500px;
+
+    margin: 25px auto;
+
+    padding: 15px 20px;
+
+    border: none;
+    border-radius: 12px;
+
+    background-color: #8b3a4a;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.botao-caixinha:hover {
+    background-color: #6f2d3b;
+}
+
+.botao-caixinha:disabled {
+    background-color: #bbb;
+    cursor: not-allowed;
+}
 
 @media (max-width: 600px) {
 
