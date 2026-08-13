@@ -1,67 +1,346 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brigadeiro dos Sonhos</title>
-    <link rel="stylesheet" href="style.css">
+
+```
+<title>Brigadeiro dos Sonhos</title>
+
+<link rel="stylesheet" href="style.css">
+```
+
 </head>
+
 <body>
 
-    <header class="topo">
-    <img src="brigadeirodossonhos.jpg" alt="">
-    <div class="carrinho">🛒 0</div>
-    </header>
 
-    <h1>Brigadeiros</h1>
+<header class="topo">
 
-    <div class="card">
-    <h2>Brigadeiro com Granulado</h2>
-    <div class="controle">
-    <button class="remover">-</button>
-    <span class="quantidade">0</span>
-    <button class="adicionar">+</button>
-    </div>
+    <img
+        src="lojabiel.jpg"
+        alt="Logo Brigadeiro dos Sonhos"
+        class="logo"
+    >
+
+    <button class="botao-carrinho" id="abrirCarrinho">
+        🛒
+        <span id="contadorCarrinho">0/4</span>
+    </button>
+
+</header>
+
+
+<main>
+
+    <section class="introducao">
+
+        <h1>Monte sua caixinha 🍫</h1>
+
+        <p>
+            Escolha até 4 brigadeiros dos nossos 5 sabores.
+        </p>
+
+        <div class="preco">
+            Caixinha com até 4 unidades
+            <strong>R$ 14,00</strong>
+        </div>
+
+    </section>
+
+
+    <!-- SABORES -->
+    <section class="sabores">
+
+        <div class="card-sabor">
+
+            <div>
+                <h2>Brigadeiro com Granulado</h2>
+                <p>Clássico e delicioso.</p>
+            </div>
+
+            <div class="controle">
+
+                <button
+                    class="botao-remover"
+                    data-produto="Brigadeiro com Granulado">
+                    −
+                </button>
+
+                <span
+                    class="quantidade"
+                    data-quantidade="Brigadeiro com Granulado">
+                    0
+                </span>
+
+                <button
+                    class="botao-adicionar"
+                    data-produto="Brigadeiro com Granulado">
+                    +
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="card-sabor">
+
+            <div>
+                <h2>Brigadeiro de Ninho</h2>
+                <p>Cremoso e suave.</p>
+            </div>
+
+            <div class="controle">
+
+                <button
+                    class="botao-remover"
+                    data-produto="Brigadeiro de Ninho">
+                    −
+                </button>
+
+                <span
+                    class="quantidade"
+                    data-quantidade="Brigadeiro de Ninho">
+                    0
+                </span>
+
+                <button
+                    class="botao-adicionar"
+                    data-produto="Brigadeiro de Ninho">
+                    +
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="card-sabor">
+
+            <div>
+                <h2>Brigadeiro de Paçoca</h2>
+                <p>Com aquele sabor de paçoca.</p>
+            </div>
+
+            <div class="controle">
+
+                <button
+                    class="botao-remover"
+                    data-produto="Brigadeiro de Paçoca">
+                    −
+                </button>
+
+                <span
+                    class="quantidade"
+                    data-quantidade="Brigadeiro de Paçoca">
+                    0
+                </span>
+
+                <button
+                    class="botao-adicionar"
+                    data-produto="Brigadeiro de Paçoca">
+                    +
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="card-sabor">
+
+            <div>
+                <h2>Brigadeiro de Ferrero Rocher</h2>
+                <p>Uma opção especial.</p>
+            </div>
+
+            <div class="controle">
+
+                <button
+                    class="botao-remover"
+                    data-produto="Brigadeiro de Ferrero Rocher">
+                    −
+                </button>
+
+                <span
+                    class="quantidade"
+                    data-quantidade="Brigadeiro de Ferrero Rocher">
+                    0
+                </span>
+
+                <button
+                    class="botao-adicionar"
+                    data-produto="Brigadeiro de Ferrero Rocher">
+                    +
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="card-sabor">
+
+            <div>
+                <h2>Brigadeiro de M&M's</h2>
+                <p>Colorido e divertido.</p>
+            </div>
+
+            <div class="controle">
+
+                <button
+                    class="botao-remover"
+                    data-produto="Brigadeiro de M&M's">
+                    −
+                </button>
+
+                <span
+                    class="quantidade"
+                    data-quantidade="Brigadeiro de M&M's">
+                    0
+                </span>
+
+                <button
+                    class="botao-adicionar"
+                    data-produto="Brigadeiro de M&M's">
+                    +
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<div class="fundo-modal" id="fundoModal">
+
+    <div class="modal">
+
+        <button class="fechar-modal" id="fecharCarrinho">
+            ×
+        </button>
+
+        <h2>Seu pedido 🛒</h2>
+
+        <div class="resumo-pedido" id="resumoPedido">
+            <p>Nenhum brigadeiro escolhido.</p>
+        </div>
+
+
+        <div class="total">
+
+            <span>Caixinha</span>
+
+            <strong>R$ 14,00</strong>
+
+        </div>
+
+
+        <form id="formPedido">
+
+            <label for="descricao">
+                Descrição do pedido
+                <span>(opcional)</span>
+            </label>
+
+            <textarea
+                id="descricao"
+                placeholder="Alguma observação ou pedido específico?"
+            ></textarea>
+
+
+            <h3>Endereço de entrega</h3>
+
+            <label for="rua">Rua *</label>
+
+            <input
+                type="text"
+                id="rua"
+                placeholder="Nome da rua"
+                required
+            >
+
+
+            <label for="numero">Número *</label>
+
+            <input
+                type="text"
+                id="numero"
+                placeholder="Número da residência"
+                required
+            >
+
+
+            <label for="cidade">Cidade *</label>
+
+            <input
+                type="text"
+                id="cidade"
+                placeholder="Cidade"
+                required
+            >
+
+
+            <h3>Forma de pagamento</h3>
+
+            <div class="pagamentos">
+
+                <label class="opcao-pagamento">
+
+                    <input
+                        type="radio"
+                        name="pagamento"
+                        value="Pix"
+                        required
+                    >
+
+                    <span>💳 Pix na hora do pedido</span>
+
+                </label>
+
+
+                <label class="opcao-pagamento">
+
+                    <input
+                        type="radio"
+                        name="pagamento"
+                        value="Dinheiro"
+                    >
+
+                    <span>💵 Dinheiro na entrega</span>
+
+                </label>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="finalizar"
+            >
+                Finalizar pedido pelo WhatsApp
+            </button>
+
+        </form>
+
     </div>
 
-    <div class="card">
-    <h2>Brigadeiro de Ninho</h2>
-    <div class="controle">
-    <button class="remover">-</button>
-    <span class="quantidade">0</span>
-    <button class="adicionar">+</button>
-    </div>
-    </div>
+</div>
 
-    <div class="card">
-    <h2>Brigadeiro de Paçoca</h2>
-    <div class="controle">
-    <button class="remover">-</button>
-    <span class="quantidade">0</span>
-    <button class="adicionar">+</button>
-    </div>    
-    </div>
 
-    <div class="card">
-    <h2>Brigadeiro de Ferreiro Rocher</h2>
-    <div class="controle">
-    <button class="remover">-</button>
-    <span class="quantidade">0</span>
-    <button class="adicionar">+</button>
-    </div>
-    </div>
+<footer>
+    Brigadeiro dos Sonhos 2026
+</footer>
 
-    <div class="card">
-    <h2>Brigadeiro de M&M's</h2>
-    <div class="controle">
-    <button class="remover">-</button>
-    <span class="quantidade">0</span>
-    <button class="adicionar">+</button>
-    </div>
-    </div>
 
-    <p>Brigadeiro dos Sonhos 2026</p>
+<script src="script.js"></script>
 
-    <script src="script.js"></script>
 </body>
+
 </html>
