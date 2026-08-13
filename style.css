@@ -68,19 +68,27 @@ h1 {
 
     display: flex;
     align-items: center;
-
-    gap: 10px;
+    justify-content: space-between;
+    
+    gap: 15px;
 }
 
 .card h2 {
     font-size: 18px;
-
     flex: 1;
 }
 
+.controle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .card button {
-    width: 35px;
-    height: 35px;
+    width: 36px;
+    height: 36px;
+
+    padding: 0;
 
     border: none;
     border-radius: 8px;
@@ -88,8 +96,12 @@ h1 {
     background-color: #8b3a4a;
     color: white;
 
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     cursor: pointer;
 }
@@ -172,27 +184,28 @@ p {
     .card {
         width: 94%;
         padding: 15px;
-        margin: 12px auto;
 
-        gap: 8px;
+        gap: 10px;
     }
 
     .card h2 {
         font-size: 16px;
-        line-height: 1.3;
+    }
+
+    .controle {
+        gap: 6px;
+        flex-shrink: 0;
     }
 
     .card button {
         width: 38px;
         height: 38px;
 
-        font-size: 20px;
-
-        flex-shrink: 0;
+        font-size: 21px;
     }
 
     .quantidade {
-        min-width: 25px;
+        min-width: 22px;
         font-size: 17px;
     }
 
