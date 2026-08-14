@@ -440,12 +440,12 @@ formPedido.addEventListener(
         if (pagamento === "Pix") {
 
             mensagem +=
-                "Pix na hora do pedido";
+                "Pix";
 
         } else {
 
             mensagem +=
-                "Dinheiro na hora da entrega";
+                "Dinheiro";
 
         }
 
