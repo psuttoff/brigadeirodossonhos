@@ -305,7 +305,6 @@ formPedido.addEventListener(
             for (const sabor in sabores) {
                 sabores[sabor] = 0;
             }
-
         }
 
         if (caixinhas.length === 0) {
@@ -318,24 +317,6 @@ formPedido.addEventListener(
 
         }
 
-        const rua =
-            document
-                .querySelector("#rua")
-                .value
-                .trim();
-
-        const numero =
-            document
-                .querySelector("#numero")
-                .value
-                .trim();
-
-        const cidade =
-            document
-                .querySelector("#cidade")
-                .value
-                .trim();
-
         const descricao =
             document
                 .querySelector("#descricao")
@@ -347,16 +328,6 @@ formPedido.addEventListener(
                 'input[name="pagamento"]:checked'
             );
 
-        if (!rua || !numero || !cidade) {
-
-            alert(
-                "Preencha o endereço completo."
-            );
-
-            return;
-
-        }
-
         if (!pagamentoSelecionado) {
 
             alert(
@@ -365,7 +336,6 @@ formPedido.addEventListener(
 
             return;
 
-        }
 
         const pagamento =
             pagamentoSelecionado.value;
@@ -474,7 +444,7 @@ formPedido.addEventListener(
         );
 
     }
-);
+;
 
 
-atualizarInterface();
+atualizarInterface());
