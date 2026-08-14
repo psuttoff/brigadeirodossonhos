@@ -392,18 +392,12 @@ formPedido.addEventListener(
 
         }
 
-        mensagem +=
-            "📍 *ENDEREÇO DE ENTREGA*\n";
+            mensagem +=
+        "📍 *ENTREGA*\n";
 
         mensagem +=
-            `Rua: ${rua}\n`;
-
-        mensagem +=
-            `Número: ${numero}\n`;
-
-        mensagem +=
-            `Cidade: ${cidade}\n\n`;
-
+        "A combinar pelo WhatsApp\n\n";
+        
         mensagem +=
             "💳 *FORMA DE PAGAMENTO*\n";
 
