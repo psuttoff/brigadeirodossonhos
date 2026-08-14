@@ -335,7 +335,7 @@ formPedido.addEventListener(
             );
 
             return;
-
+        }
 
         const pagamento =
             pagamentoSelecionado.value;
@@ -438,7 +438,7 @@ formPedido.addEventListener(
         );
 
     }
-;
+);
 
 
-atualizarInterface());
+atualizarInterface();
